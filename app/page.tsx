@@ -1,10 +1,15 @@
-"use client"
+"use client";
 
-import React from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Badge } from "@/components/ui/badge"
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import {
   Wallet,
   TrendingUp,
@@ -36,72 +41,73 @@ import {
   Eye,
   Lightbulb,
   Clock,
-} from "lucide-react"
-import Link from "next/link"
-import { useState, useEffect } from "react"
+} from "lucide-react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import Image from "next/image"
 
 export default function HomePage() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [currentFeature, setCurrentFeature] = useState(0)
-  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0])
+  const [isVisible, setIsVisible] = useState(false);
+  const [currentFeature, setCurrentFeature] = useState(0);
+  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
 
-  const targetStats = [50000, 2000000, 99.9, 4.9]
-  const statLabels = ["Active Users", "Money Saved", "Uptime", "User Rating"]
+  const targetStats = [50000, 2000000, 99.9, 4.9];
+  const statLabels = ["Active Users", "Money Saved", "Uptime", "User Rating"];
 
   useEffect(() => {
-    setIsVisible(true)
+    setIsVisible(true);
 
     // Animate stats
     const animateStats = () => {
       targetStats.forEach((target, index) => {
-        let current = 0
-        const increment = target / 100
+        let current = 0;
+        const increment = target / 100;
         const timer = setInterval(() => {
-          current += increment
+          current += increment;
           if (current >= target) {
-            current = target
-            clearInterval(timer)
+            current = target;
+            clearInterval(timer);
           }
           setAnimatedStats((prev) => {
-            const newStats = [...prev]
-            newStats[index] = current
-            return newStats
-          })
-        }, 20)
-      })
-    }
+            const newStats = [...prev];
+            newStats[index] = current;
+            return newStats;
+          });
+        }, 20);
+      });
+    };
 
-    const statsTimer = setTimeout(animateStats, 500)
+    const statsTimer = setTimeout(animateStats, 500);
 
     // Feature rotation
     const interval = setInterval(() => {
-      setCurrentFeature((prev) => (prev + 1) % 8)
-    }, 4000)
+      setCurrentFeature((prev) => (prev + 1) % 8);
+    }, 4000);
 
     // Scroll animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px",
-    }
+    };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fade-in-up")
+          entry.target.classList.add("animate-fade-in-up");
         }
-      })
-    }, observerOptions)
+      });
+    }, observerOptions);
 
     // Observe all sections
-    const sections = document.querySelectorAll(".scroll-animate")
-    sections.forEach((section) => observer.observe(section))
+    const sections = document.querySelectorAll(".scroll-animate");
+    sections.forEach((section) => observer.observe(section));
 
     return () => {
-      clearInterval(interval)
-      clearTimeout(statsTimer)
-      observer.disconnect()
-    }
-  }, [])
+      clearInterval(interval);
+      clearTimeout(statsTimer);
+      observer.disconnect();
+    };
+  }, []);
 
   const features = [
     {
@@ -124,15 +130,27 @@ export default function HomePage() {
       title: "Advanced Budgeting",
       desc: "Dynamic budget allocation and monitoring",
     },
-    { icon: Target, title: "Goal Achievement", desc: "Set and track financial milestones" },
-    { icon: Globe, title: "Multi-Currency", desc: "Support for 150+ currencies worldwide" },
-    { icon: Bell, title: "Smart Notifications", desc: "Proactive alerts and reminders" },
+    {
+      icon: Target,
+      title: "Goal Achievement",
+      desc: "Set and track financial milestones",
+    },
+    {
+      icon: Globe,
+      title: "Multi-Currency",
+      desc: "Support for 150+ currencies worldwide",
+    },
+    {
+      icon: Bell,
+      title: "Smart Notifications",
+      desc: "Proactive alerts and reminders",
+    },
     {
       icon: Shield,
       title: "Bank-Level Security",
       desc: "Military-grade encryption and protection",
     },
-  ]
+  ];
 
   const advancedFeatures = [
     {
@@ -150,37 +168,97 @@ export default function HomePage() {
       title: "Investment Portfolio",
       desc: "Track stocks, crypto, and other investments in real-time",
     },
-    { icon: Calculator, title: "Advanced Budgeting", desc: "Dynamic budget allocation with predictive analytics" },
-    { icon: Target, title: "Goal Management", desc: "Set and achieve financial milestones with smart recommendations" },
-    { icon: BarChart3, title: "Financial Reports", desc: "Comprehensive analytics with exportable reports" },
-    { icon: Bell, title: "Smart Notifications", desc: "Proactive alerts for bills, budgets, and opportunities" },
-    { icon: Smartphone, title: "Mobile Apps", desc: "Full-featured iOS and Android apps with offline support" },
-    { icon: PieChart, title: "Spending Analysis", desc: "Visual breakdowns with trend analysis and predictions" },
-    { icon: CreditCard, title: "Bill Management", desc: "Automated bill tracking with payment scheduling" },
-    { icon: Users, title: "Family Sharing", desc: "Collaborative budgeting with role-based permissions" },
-    { icon: Zap, title: "Real-time Sync", desc: "Instant updates across all devices with cloud backup" },
-    { icon: Globe, title: "Multi-Currency", desc: "Support for 150+ currencies with live exchange rates" },
-    { icon: Calendar, title: "Financial Calendar", desc: "Track important dates, bills, and financial events" },
-    { icon: FileText, title: "Tax Planning", desc: "Automated tax preparation with deduction optimization" },
-    { icon: Banknote, title: "Debt Management", desc: "Strategic debt payoff plans with interest calculations" },
-    { icon: Award, title: "Credit Score Monitoring", desc: "Track your credit score with improvement recommendations" },
-    { icon: Lock, title: "Privacy Protection", desc: "Zero-knowledge architecture with end-to-end encryption" },
-  ]
+    {
+      icon: Calculator,
+      title: "Advanced Budgeting",
+      desc: "Dynamic budget allocation with predictive analytics",
+    },
+    {
+      icon: Target,
+      title: "Goal Management",
+      desc: "Set and achieve financial milestones with smart recommendations",
+    },
+    {
+      icon: BarChart3,
+      title: "Financial Reports",
+      desc: "Comprehensive analytics with exportable reports",
+    },
+    {
+      icon: Bell,
+      title: "Smart Notifications",
+      desc: "Proactive alerts for bills, budgets, and opportunities",
+    },
+    {
+      icon: Smartphone,
+      title: "Mobile Apps",
+      desc: "Full-featured iOS and Android apps with offline support",
+    },
+    {
+      icon: PieChart,
+      title: "Spending Analysis",
+      desc: "Visual breakdowns with trend analysis and predictions",
+    },
+    {
+      icon: CreditCard,
+      title: "Bill Management",
+      desc: "Automated bill tracking with payment scheduling",
+    },
+    {
+      icon: Users,
+      title: "Family Sharing",
+      desc: "Collaborative budgeting with role-based permissions",
+    },
+    {
+      icon: Zap,
+      title: "Real-time Sync",
+      desc: "Instant updates across all devices with cloud backup",
+    },
+    {
+      icon: Globe,
+      title: "Multi-Currency",
+      desc: "Support for 150+ currencies with live exchange rates",
+    },
+    {
+      icon: Calendar,
+      title: "Financial Calendar",
+      desc: "Track important dates, bills, and financial events",
+    },
+    {
+      icon: FileText,
+      title: "Tax Planning",
+      desc: "Automated tax preparation with deduction optimization",
+    },
+    {
+      icon: Banknote,
+      title: "Debt Management",
+      desc: "Strategic debt payoff plans with interest calculations",
+    },
+    {
+      icon: Award,
+      title: "Credit Score Monitoring",
+      desc: "Track your credit score with improvement recommendations",
+    },
+    {
+      icon: Lock,
+      title: "Privacy Protection",
+      desc: "Zero-knowledge architecture with end-to-end encryption",
+    },
+  ];
 
   const stats = [
     { value: "50K+", label: "Active Users", icon: Users },
     { value: "$2M+", label: "Money Saved", icon: DollarSign },
     { value: "99.9%", label: "Uptime", icon: Zap },
     { value: "4.9★", label: "User Rating", icon: Star },
-  ]
+  ];
 
   const formatStatValue = (value: number, index: number) => {
-    if (index === 0) return `${Math.floor(value / 1000)}K+`
-    if (index === 1) return `$${Math.floor(value / 1000000)}M+`
-    if (index === 2) return `${value.toFixed(1)}%`
-    if (index === 3) return `${value.toFixed(1)}★`
-    return value.toString()
-  }
+    if (index === 0) return `${Math.floor(value / 1000)}K+`;
+    if (index === 1) return `$${Math.floor(value / 1000000)}M+`;
+    if (index === 2) return `${value.toFixed(1)}%`;
+    if (index === 3) return `${value.toFixed(1)}★`;
+    return value.toString();
+  };
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
@@ -189,8 +267,15 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 group">
+              <Image
+                src="/logo.png"
+                alt="Money Magnet Logo"
+                width={40}
+                height={40}
+                className="transition-transform duration-300 group-hover:scale-105"
+              />
               <div className="text-2xl font-bold text-yellow-400 transition-transform duration-300 group-hover:scale-105">
-                MONEY MAGNET 💵
+                MONEY MAGNET
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-8">
@@ -227,7 +312,11 @@ export default function HomePage() {
       <section className="pt-32 pb-20 px-4 scroll-animate">
         <div className="container mx-auto text-center">
           <div
-            className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`transition-all duration-1000 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
           >
             <Badge className="mb-6 bg-yellow-400/20 text-yellow-400 border-yellow-400/30">
               <Rocket className="mr-2 h-4 w-4" />
@@ -239,12 +328,16 @@ export default function HomePage() {
             </h1>
 
             <div className="text-3xl md:text-4xl text-white mb-4">
-              Helps You <span className="text-yellow-400 font-semibold">Achieve Financial Freedom</span>
+              Helps You{" "}
+              <span className="text-yellow-400 font-semibold">
+                Achieve Financial Freedom
+              </span>
             </div>
 
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Transform your financial future with AI-powered insights, smart budgeting tools, and real-time expense
-              tracking. Join thousands who've already taken control of their money.
+              Transform your financial future with AI-powered insights, smart
+              budgeting tools, and real-time expense tracking. Join thousands
+              who've already taken control of their money.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -270,9 +363,12 @@ export default function HomePage() {
             {/* Animated Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
               {stats.map((stat, index) => {
-                const Icon = stat.icon
+                const Icon = stat.icon;
                 return (
-                  <div key={index} className="text-center transition-transform duration-300 hover:scale-105">
+                  <div
+                    key={index}
+                    className="text-center transition-transform duration-300 hover:scale-105"
+                  >
                     <div className="mb-2 flex justify-center">
                       <Icon className="h-6 w-6 text-yellow-400" />
                     </div>
@@ -281,7 +377,7 @@ export default function HomePage() {
                     </div>
                     <div className="text-gray-400 text-sm">{stat.label}</div>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
@@ -301,15 +397,19 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-gray-900/20 scroll-animate">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 text-yellow-400">Powerful Features</h2>
-            <p className="text-xl text-gray-300">Everything you need to master your finances</p>
+            <h2 className="text-5xl font-bold mb-4 text-yellow-400">
+              Powerful Features
+            </h2>
+            <p className="text-xl text-gray-300">
+              Everything you need to master your finances
+            </p>
           </div>
 
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-4">
                 {features.map((feature, index) => {
-                  const Icon = feature.icon
+                  const Icon = feature.icon;
                   return (
                     <div
                       key={index}
@@ -321,17 +421,27 @@ export default function HomePage() {
                       onClick={() => setCurrentFeature(index)}
                     >
                       <div
-                        className={`p-3 rounded-full ${currentFeature === index ? "bg-yellow-400/20" : "bg-gray-800"} transition-all duration-300`}
+                        className={`p-3 rounded-full ${
+                          currentFeature === index
+                            ? "bg-yellow-400/20"
+                            : "bg-gray-800"
+                        } transition-all duration-300`}
                       >
                         <Icon className="h-6 w-6 text-yellow-400 transition-all duration-300" />
                       </div>
                       <div className="flex-1">
-                        <span className="text-lg font-medium text-white transition-colors">{feature.title}</span>
-                        <p className="text-sm text-gray-400 mt-1">{feature.desc}</p>
+                        <span className="text-lg font-medium text-white transition-colors">
+                          {feature.title}
+                        </span>
+                        <p className="text-sm text-gray-400 mt-1">
+                          {feature.desc}
+                        </p>
                       </div>
-                      {currentFeature === index && <CheckCircle className="h-5 w-5 text-yellow-400" />}
+                      {currentFeature === index && (
+                        <CheckCircle className="h-5 w-5 text-yellow-400" />
+                      )}
                     </div>
-                  )
+                  );
                 })}
               </div>
 
@@ -342,8 +452,12 @@ export default function HomePage() {
                       {React.createElement(features[currentFeature].icon, {
                         className: `h-32 w-32 text-yellow-400 mb-6 mx-auto`,
                       })}
-                      <h3 className="text-2xl font-bold text-white mb-4">{features[currentFeature].title}</h3>
-                      <p className="text-gray-400 leading-relaxed">{features[currentFeature].desc}</p>
+                      <h3 className="text-2xl font-bold text-white mb-4">
+                        {features[currentFeature].title}
+                      </h3>
+                      <p className="text-gray-400 leading-relaxed">
+                        {features[currentFeature].desc}
+                      </p>
                       <div className="mt-6">
                         <Button className="bg-yellow-400 text-black hover:bg-yellow-500 transition-all duration-300">
                           <Eye className="mr-2 h-4 w-4" />
@@ -362,12 +476,16 @@ export default function HomePage() {
       {/* Enhanced Features Grid */}
       <section id="features" className="py-20 px-4 scroll-animate">
         <div className="container mx-auto">
-          <h2 className="text-5xl font-bold text-center mb-4 text-yellow-400">Complete Financial Suite</h2>
-          <p className="text-xl text-gray-300 text-center mb-16">18 powerful tools to transform your financial life</p>
+          <h2 className="text-5xl font-bold text-center mb-4 text-yellow-400">
+            Complete Financial Suite
+          </h2>
+          <p className="text-xl text-gray-300 text-center mb-16">
+            18 powerful tools to transform your financial life
+          </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {advancedFeatures.map((feature, index) => {
-              const Icon = feature.icon
+              const Icon = feature.icon;
               return (
                 <Card
                   key={index}
@@ -382,24 +500,33 @@ export default function HomePage() {
                     <h3 className="text-lg font-bold mb-3 text-white group-hover:text-yellow-400 transition-colors relative z-10">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed relative z-10">{feature.desc}</p>
+                    <p className="text-gray-400 text-sm leading-relaxed relative z-10">
+                      {feature.desc}
+                    </p>
 
                     {/* Hover effect background */}
                     <div className="absolute inset-0 bg-yellow-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </CardContent>
                 </Card>
-              )
+              );
             })}
           </div>
         </div>
       </section>
 
       {/* Enhanced Pricing Section */}
-      <section id="pricing" className="py-20 px-4 bg-gray-900/20 scroll-animate">
+      <section
+        id="pricing"
+        className="py-20 px-4 bg-gray-900/20 scroll-animate"
+      >
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 text-yellow-400">Choose Your Plan</h2>
-            <p className="text-xl text-gray-300">Start free, upgrade when you're ready</p>
+            <h2 className="text-5xl font-bold mb-4 text-yellow-400">
+              Choose Your Plan
+            </h2>
+            <p className="text-xl text-gray-300">
+              Start free, upgrade when you're ready
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -472,15 +599,24 @@ export default function HomePage() {
 
                 <CardContent className="p-8 text-center relative overflow-hidden">
                   <div className="relative z-10">
-                    <h3 className="text-2xl font-bold mb-4 text-white">{plan.name}</h3>
+                    <h3 className="text-2xl font-bold mb-4 text-white">
+                      {plan.name}
+                    </h3>
                     <div className="mb-6">
-                      <span className={`text-5xl font-bold ${plan.accent}`}>{plan.price}</span>
-                      <span className="text-gray-400 text-lg">{plan.period}</span>
+                      <span className={`text-5xl font-bold ${plan.accent}`}>
+                        {plan.price}
+                      </span>
+                      <span className="text-gray-400 text-lg">
+                        {plan.period}
+                      </span>
                     </div>
 
                     <ul className="space-y-3 mb-8">
                       {plan.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="text-gray-300 flex items-center justify-start">
+                        <li
+                          key={featureIndex}
+                          className="text-gray-300 flex items-center justify-start"
+                        >
                           <CheckCircle className="w-4 h-4 text-yellow-400 mr-3 flex-shrink-0" />
                           <span className="text-left">{feature}</span>
                         </li>
@@ -494,7 +630,9 @@ export default function HomePage() {
                           : "bg-gray-800 text-white hover:bg-gray-700"
                       }`}
                     >
-                      {plan.price === "Free" ? "Get Started" : "Start Free Trial"}
+                      {plan.price === "Free"
+                        ? "Get Started"
+                        : "Start Free Trial"}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
@@ -509,8 +647,12 @@ export default function HomePage() {
       <section id="testimonials" className="py-20 px-4 scroll-animate">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 text-yellow-400">Loved by Thousands</h2>
-            <p className="text-xl text-gray-300">Real stories from real users who transformed their finances</p>
+            <h2 className="text-5xl font-bold mb-4 text-yellow-400">
+              Loved by Thousands
+            </h2>
+            <p className="text-xl text-gray-300">
+              Real stories from real users who transformed their finances
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -551,11 +693,16 @@ export default function HomePage() {
                   <div className="relative z-10">
                     <div className="flex mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                        <Star
+                          key={i}
+                          className="h-5 w-5 text-yellow-400 fill-current"
+                        />
                       ))}
                     </div>
 
-                    <p className="text-lg mb-6 text-gray-300 leading-relaxed italic">"{testimonial.text}"</p>
+                    <p className="text-lg mb-6 text-gray-300 leading-relaxed italic">
+                      "{testimonial.text}"
+                    </p>
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
@@ -563,13 +710,21 @@ export default function HomePage() {
                           {testimonial.avatar}
                         </div>
                         <div>
-                          <p className="font-semibold text-yellow-400">{testimonial.name}</p>
-                          <p className="text-gray-400 text-sm">{testimonial.role}</p>
-                          <p className="text-gray-500 text-xs">{testimonial.location}</p>
+                          <p className="font-semibold text-yellow-400">
+                            {testimonial.name}
+                          </p>
+                          <p className="text-gray-400 text-sm">
+                            {testimonial.role}
+                          </p>
+                          <p className="text-gray-500 text-xs">
+                            {testimonial.location}
+                          </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-yellow-400 font-bold text-xl">{testimonial.savings}</p>
+                        <p className="text-yellow-400 font-bold text-xl">
+                          {testimonial.savings}
+                        </p>
                         <p className="text-gray-400 text-xs">saved this year</p>
                       </div>
                     </div>
@@ -584,10 +739,13 @@ export default function HomePage() {
       {/* Enhanced CTA Section */}
       <section className="py-20 px-4 bg-yellow-400/10 scroll-animate">
         <div className="container mx-auto text-center">
-          <h2 className="text-6xl font-bold mb-6 text-yellow-400">Ready to Transform Your Finances?</h2>
+          <h2 className="text-6xl font-bold mb-6 text-yellow-400">
+            Ready to Transform Your Finances?
+          </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Join over 50,000 users who've already taken control of their financial future with Money Magnet. Start your
-            journey to financial freedom today.
+            Join over 50,000 users who've already taken control of their
+            financial future with Money Magnet. Start your journey to financial
+            freedom today.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -630,8 +788,12 @@ export default function HomePage() {
       {/* Enhanced FAQ Section */}
       <section id="faq" className="py-20 px-4 bg-gray-900/20 scroll-animate">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-5xl font-bold text-center mb-4 text-yellow-400">Frequently Asked Questions</h2>
-          <p className="text-xl text-gray-300 text-center mb-16">Everything you need to know about Money Magnet</p>
+          <h2 className="text-5xl font-bold text-center mb-4 text-yellow-400">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-xl text-gray-300 text-center mb-16">
+            Everything you need to know about Money Magnet
+          </p>
 
           <Accordion type="single" collapsible className="space-y-4">
             {[
@@ -656,7 +818,8 @@ export default function HomePage() {
                   "Yes! We have full-featured mobile apps for both iOS and Android that sync seamlessly with the web platform. You can track expenses, check budgets, receive notifications, and access all features on the go with offline support.",
               },
               {
-                question: "What makes Money Magnet different from other financial apps?",
+                question:
+                  "What makes Money Magnet different from other financial apps?",
                 answer:
                   "Our AI-powered insights, comprehensive feature set including investment tracking, multi-currency support, family sharing, and advanced analytics make us a complete financial solution. Plus, our predictive algorithms help you make smarter financial decisions.",
               },
@@ -687,7 +850,9 @@ export default function HomePage() {
                     {faq.question}
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-300 pb-6 leading-relaxed">{faq.answer}</AccordionContent>
+                <AccordionContent className="text-gray-300 pb-6 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
@@ -699,10 +864,13 @@ export default function HomePage() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-5 gap-8 mb-12">
             <div className="md:col-span-2">
-              <div className="text-3xl font-bold text-yellow-400 mb-4 flex items-center">MONEY MAGNET 💵</div>
+              <div className="text-3xl font-bold text-yellow-400 mb-4 flex items-center">
+                MONEY MAGNET 💵
+              </div>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                Your comprehensive financial tool for effortless budget management, expense tracking, and financial
-                empowerment. Transform your financial future with AI-powered insights.
+                Your comprehensive financial tool for effortless budget
+                management, expense tracking, and financial empowerment.
+                Transform your financial future with AI-powered insights.
               </p>
               <div className="flex space-x-4">
                 {["f", "t", "in", "ig"].map((social, index) => (
@@ -710,7 +878,9 @@ export default function HomePage() {
                     key={social}
                     className="w-10 h-10 bg-yellow-400/20 rounded-full flex items-center justify-center hover:bg-yellow-400/30 transition-all duration-300 cursor-pointer hover:scale-110"
                   >
-                    <span className="text-yellow-400 text-sm font-bold">{social}</span>
+                    <span className="text-yellow-400 text-sm font-bold">
+                      {social}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -719,23 +889,49 @@ export default function HomePage() {
             {[
               {
                 title: "Product",
-                links: ["Features", "Pricing", "Mobile App", "API", "Integrations", "Security"],
+                links: [
+                  "Features",
+                  "Pricing",
+                  "Mobile App",
+                  "API",
+                  "Integrations",
+                  "Security",
+                ],
               },
               {
                 title: "Company",
-                links: ["About", "Blog", "Careers", "Press", "Partners", "Contact"],
+                links: [
+                  "About",
+                  "Blog",
+                  "Careers",
+                  "Press",
+                  "Partners",
+                  "Contact",
+                ],
               },
               {
                 title: "Support",
-                links: ["Help Center", "Privacy Policy", "Terms of Service", "Status", "Community", "Feedback"],
+                links: [
+                  "Help Center",
+                  "Privacy Policy",
+                  "Terms of Service",
+                  "Status",
+                  "Community",
+                  "Feedback",
+                ],
               },
             ].map((section, index) => (
               <div key={section.title}>
-                <h3 className="text-white font-semibold mb-4 text-lg">{section.title}</h3>
+                <h3 className="text-white font-semibold mb-4 text-lg">
+                  {section.title}
+                </h3>
                 <ul className="space-y-3">
                   {section.links.map((link, linkIndex) => (
                     <li key={link}>
-                      <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300">
+                      <a
+                        href="#"
+                        className="text-gray-400 hover:text-yellow-400 transition-colors duration-300"
+                      >
                         {link}
                       </a>
                     </li>
@@ -748,7 +944,8 @@ export default function HomePage() {
           <div className="border-t border-yellow-500/20 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="text-gray-400 text-sm mb-4 md:mb-0">
-                © 2024 Money Magnet. All rights reserved. Made with care for your financial success.
+                © 2024 Money Magnet. All rights reserved. Made with care for
+                your financial success.
               </div>
               <div className="flex items-center space-x-6 text-sm text-gray-400">
                 <div className="flex items-center">
@@ -772,5 +969,5 @@ export default function HomePage() {
         <div className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></div>
       </footer>
     </div>
-  )
+  );
 }
