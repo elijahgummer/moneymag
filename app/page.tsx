@@ -44,7 +44,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import Image from "next/image"
+import Image from "next/image";
 
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -864,8 +864,17 @@ export default function HomePage() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-5 gap-8 mb-12">
             <div className="md:col-span-2">
-              <div className="text-3xl font-bold text-yellow-400 mb-4 flex items-center">
-                MONEY MAGNET 💵
+              <div className="mb-4 flex items-center justify-start">
+                <Image
+                  src="/logo.png"
+                  alt="Money Magnet Logo"
+                  width={40}
+                  height={40}
+                  className="transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="text-3xl font-bold text-yellow-400 flex items-center ml-3">
+                  MONEY MAGNET
+                </div>
               </div>
               <p className="text-gray-400 mb-6 leading-relaxed">
                 Your comprehensive financial tool for effortless budget
