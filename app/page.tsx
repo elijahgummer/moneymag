@@ -267,9 +267,9 @@ export default function HomePage() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 border-b border-yellow-500/20 bg-black/95 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between text-center md:text-left">
+          <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center justify-center space-x-2 group mb-2 md:mb-0">
+            <div className="flex items-center space-x-2 group">
               <Image
                 src="/logo.png"
                 alt="Money Magnet Logo"
@@ -312,7 +312,7 @@ export default function HomePage() {
 
             {/* Mobile Hamburger */}
             <button
-              className="md:hidden flex items-center text-yellow-400 mt-2 md:mt-0"
+              className="md:hidden flex items-center text-yellow-400"
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
               aria-label="Toggle navigation"
             >
@@ -324,7 +324,7 @@ export default function HomePage() {
         {/* Mobile Nav Drawer */}
         {mobileNavOpen && (
           <div className="md:hidden bg-black/95 border-t border-yellow-500/20 px-4 py-6 absolute top-full left-0 w-full z-50">
-            <div className="flex flex-col space-y-4 text-center items-center">
+            <div className="flex flex-col space-y-4">
               {["Features", "Reviews", "Pricing", "FAQ"].map((item) => (
                 <a
                   key={item}
