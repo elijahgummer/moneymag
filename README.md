@@ -8,7 +8,7 @@ The Money Magnet Website Project is a demonstration of a fictional budget and ex
 
 ---
 
-👉 Live Demo: [Live Demo](https://elijahgummer.github.io/MoneyMagnet/)
+👉 Live Demo: [Live Demo](https://moneymag.vercel.app/)
 ---
 
 ## About the Project ℹ️
