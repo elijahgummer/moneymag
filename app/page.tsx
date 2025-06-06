@@ -41,6 +41,8 @@ import {
   Eye,
   Lightbulb,
   Clock,
+  X,
+  Menu,
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -50,6 +52,7 @@ export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentFeature, setCurrentFeature] = useState(0);
   const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const targetStats = [50000, 2000000, 99.9, 4.9];
   const statLabels = ["Active Users", "Money Saved", "Uptime", "User Rating"];
@@ -266,6 +269,7 @@ export default function HomePage() {
       <nav className="fixed top-0 w-full z-50 border-b border-yellow-500/20 bg-black/95 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
+            {/* Logo */}
             <div className="flex items-center space-x-2 group">
               <Image
                 src="/logo.png"
@@ -278,8 +282,10 @@ export default function HomePage() {
                 MONEY MAGNET
               </div>
             </div>
+
+            {/* Desktop Nav */}
             <div className="hidden md:flex items-center space-x-8">
-              {["Features", "Reviews", "Pricing", "FAQ"].map((item, index) => (
+              {["Features", "Reviews", "Pricing", "FAQ"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -290,7 +296,7 @@ export default function HomePage() {
                 </a>
               ))}
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-4">
               <Link href="/dashboard">
                 <Button
                   variant="outline"
@@ -304,8 +310,54 @@ export default function HomePage() {
                 <Sparkles className="ml-2 h-4 w-4" />
               </Button>
             </div>
+
+            {/* Mobile Hamburger */}
+            <button
+              className="md:hidden flex items-center text-yellow-400"
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+              aria-label="Toggle navigation"
+            >
+              {mobileNavOpen ? (
+                <X className="h-8 w-8" />
+              ) : (
+                <Menu className="h-8 w-8" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Nav Drawer */}
+        {mobileNavOpen && (
+          <div className="md:hidden bg-black/95 border-t border-yellow-500/20 px-4 py-6 absolute top-full left-0 w-full z-50">
+            <div className="flex flex-col space-y-4">
+              {["Features", "Reviews", "Pricing", "FAQ"].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="text-white hover:text-yellow-400 text-lg transition-colors duration-300"
+                  onClick={() => setMobileNavOpen(false)}
+                >
+                  {item}
+                </a>
+              ))}
+              <Link href="/dashboard" onClick={() => setMobileNavOpen(false)}>
+                <Button
+                  variant="outline"
+                  className="w-full border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300"
+                >
+                  Dashboard
+                </Button>
+              </Link>
+              <Button
+                className="w-full bg-yellow-400 text-black hover:bg-yellow-500 transition-all duration-300"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                Get Started
+                <Sparkles className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
