@@ -329,7 +329,7 @@ export default function HomePage() {
         {/* Mobile Nav Drawer */}
         {mobileNavOpen && (
           <div className="md:hidden bg-black/95 border-t border-yellow-500/20 px-4 py-6 absolute top-full left-0 w-full z-50">
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 text-center">
               {["Features", "Reviews", "Pricing", "FAQ"].map((item) => (
                 <a
                   key={item}
