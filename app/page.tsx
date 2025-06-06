@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -45,7 +45,6 @@ import {
   Menu,
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function HomePage() {
@@ -268,9 +267,9 @@ export default function HomePage() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 border-b border-yellow-500/20 bg-black/95 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between text-center md:text-left">
             {/* Logo */}
-            <div className="flex items-center space-x-2 group">
+            <div className="flex items-center justify-center space-x-2 group mb-2 md:mb-0">
               <Image
                 src="/logo.png"
                 alt="Money Magnet Logo"
@@ -313,15 +312,11 @@ export default function HomePage() {
 
             {/* Mobile Hamburger */}
             <button
-              className="md:hidden flex items-center text-yellow-400"
+              className="md:hidden flex items-center text-yellow-400 mt-2 md:mt-0"
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
               aria-label="Toggle navigation"
             >
-              {mobileNavOpen ? (
-                <X className="h-8 w-8" />
-              ) : (
-                <Menu className="h-8 w-8" />
-              )}
+              {mobileNavOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
             </button>
           </div>
         </div>
@@ -329,7 +324,7 @@ export default function HomePage() {
         {/* Mobile Nav Drawer */}
         {mobileNavOpen && (
           <div className="md:hidden bg-black/95 border-t border-yellow-500/20 px-4 py-6 absolute top-full left-0 w-full z-50">
-            <div className="flex flex-col space-y-4 text-center">
+            <div className="flex flex-col space-y-4 text-center items-center">
               {["Features", "Reviews", "Pricing", "FAQ"].map((item) => (
                 <a
                   key={item}
@@ -820,7 +815,7 @@ export default function HomePage() {
             </Button>
           </div>
 
-          <div className="flex items-center justify-center space-x-8 text-sm text-gray-400">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-sm text-gray-400">
             <div className="flex items-center">
               <CheckCircle className="mr-2 h-4 w-4 text-yellow-400" />
               No credit card required
@@ -914,9 +909,9 @@ export default function HomePage() {
       {/* Enhanced Footer */}
       <footer className="py-16 px-4 border-t border-yellow-500/20 bg-black scroll-animate">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-5 gap-8 mb-12">
-            <div className="md:col-span-2">
-              <div className="mb-4 flex items-center justify-start">
+          <div className="grid md:grid-cols-5 gap-8 mb-12 text-center md:text-left">
+            <div className="md:col-span-2 flex flex-col items-center md:items-start">
+              <div className="mb-4 flex items-center justify-center md:justify-start">
                 <Image
                   src="/logo.png"
                   alt="Money Magnet Logo"
@@ -933,7 +928,7 @@ export default function HomePage() {
                 management, expense tracking, and financial empowerment.
                 Transform your financial future with AI-powered insights.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 justify-center md:justify-start">
                 {["f", "t", "in", "ig"].map((social, index) => (
                   <div
                     key={social}
@@ -1003,12 +998,12 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-yellow-500/20 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-center md:justify-between items-center text-center">
               <div className="text-gray-400 text-sm mb-4 md:mb-0">
                 © 2024 Money Magnet. All rights reserved. Made with care for
                 your financial success.
               </div>
-              <div className="flex items-center space-x-6 text-sm text-gray-400">
+              <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <div className="flex items-center">
                   <Shield className="mr-2 h-4 w-4 text-yellow-400" />
                   SOC 2 Certified
